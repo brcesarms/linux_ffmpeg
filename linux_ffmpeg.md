@@ -6,8 +6,6 @@ ffmpeg -i ENTRADA.mp4 -c:v av1_nvenc -preset p7 -cq 26 -filter:v fps=60 -c:a lib
  
 ```
 
----
-
 #### O que cada parte do comando faz:
 * `-i entrada.mp4`: Especifica o arquivo de vídeo original. Substitua `entrada.mp4` pelo nome exato do seu vídeo.
 
@@ -24,6 +22,8 @@ ffmpeg -i ENTRADA.mp4 -c:v av1_nvenc -preset p7 -cq 26 -filter:v fps=60 -c:a lib
 * `-b:a 128k`: Define a taxa de bits do áudio. O Opus é incrivelmente eficiente, então 128 kbps geralmente entrega uma qualidade de som transparente (indistinguível da fonte original) para áudio estéreo.
 
 * `saida.mkv`: O nome e o contêiner (MKV) do arquivo final.
+
+&nbsp;
 
 ---
 
@@ -54,44 +54,81 @@ Forçar 60 fps em uma fonte de menor fluidez apenas obriga o FFmpeg a desenhar e
 
 * Use o filtro: `-filter:v fps=24`.
 
+&nbsp;
+
 ---
 
 #### ⚠️ Importante para o Fedora 44
 Para que a aceleração por hardware da NVIDIA funcione perfeitamente no Fedora, certifique-se de que dois requisitos estejam atendidos:
 
 1. Drivers Proprietários da NVIDIA: Você precisa estar com os drivers oficiais instalados (geralmente instalados via loja de aplicativos do GNOME/KDE ou via linha de comando pelo repositório `rpmfusion-nonfree`).
+
 ```bash
 sudo dnf -y update
  
 ```
+
 ```bash
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
  
 ```
+
 ```bash
 # reinicie o sistema
 sudo dnf swap ffmpeg-free ffmpeg --allowerasing
  
 ```
 
+Detalhando o comando:
 
+* sudo: Executa a ação com privilégios de superusuário (administrador / root).
+
+
+* dnf: É o nome do gerenciador de pacotes padrão do Fedora.
+
+* swap: É a instrução mágica aqui. Ela manda o sistema "trocar" um pacote por outro em uma única operação, evitando conflitos ou quebras.
+
+* ffmpeg-free: É o nome do pacote limitado que será removido do seu sistema.
+
+
+* ffmpeg: É o nome do pacote completo que será instalado no lugar (obtido a partir do repositório RPM Fusion).
+
+* --allowerasing: Dá permissão explícita ao dnf para apagar pacotes que estejam causando conflito (neste caso, o ffmpeg-free antigo) para permitir a entrada da versão nova.
+
+Rodar este comando é um passo obrigatório para garantir que todos os codecs e a aceleração da sua placa de vídeo NVIDIA funcionem perfeitamente.
+
+&nbsp;
+
+---
 ```bash
 sudo dnf group upgrade multimedia
  
 ```
+
+Detalhando o comando:
+
+* sudo dnf: Roda o gerenciador de pacotes do Fedora com privilégios de administrador.
+
+* group upgrade: É uma instrução que diz ao sistema para atualizar um "grupo" inteiro de softwares interligados, em vez de um aplicativo isolado.
+
+* multimedia: É o nome desse grupo. Ele engloba ferramentas como o próprio FFmpeg, reprodutores de vídeo, codecs de áudio e plugins essenciais (como os do GStreamer).
+
+Para o seu caso específico, lidando com conversões pesadas de AV1 e MKV, rodar isso garante que todo o ecossistema de mídia do seu Fedora esteja na versão mais recente e otimizada.
+
+&nbsp;
+
+---
+
 ```bash
 sudo dnf group upgrade core
  
 ```
 
+Detalhando o comando:
 
-2. Versão Completa do FFmpeg: A versão do FFmpeg que vem por padrão nos repositórios normais do Fedora costuma vir sem suporte a codecs de terceiros ou hardware proprietário por questões de licença. Certifique-se de instalar o pacote completo a partir do repositório RPM Fusion:
+* sudo dnf: Roda o gerenciador de pacotes do Fedora com privilégios de administrador.
 
-```bash
-sudo dnf install ffmpeg
- 
-```
+* group upgrade: É uma instrução que diz ao sistema para atualizar um "grupo" inteiro de softwares interligados, em vez de um aplicativo isolado.
 
-
-Se precisar ajustar algo mais, como cortar partes do vídeo ou embutir legendas, é só rodar o comando e aproveitar o poder do seu hardware.
+* core: É o nome desse grupo base. Ele não mexe com interface gráfica ou players de vídeo, mas sim com os componentes críticos e de baixo nível do sistema operacional (como utilitários do kernel, inicialização e ferramentas básicas do terminal).
