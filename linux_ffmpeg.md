@@ -82,19 +82,19 @@ sudo dnf swap ffmpeg-free ffmpeg --allowerasing
 
 Detalhando o comando:
 
-* sudo: Executa a ação com privilégios de superusuário (administrador / root).
+* `sudo`: Executa a ação com privilégios de superusuário (administrador / root).
 
 
-* dnf: É o nome do gerenciador de pacotes padrão do Fedora.
+* `dnf`: É o nome do gerenciador de pacotes padrão do Fedora.
 
-* swap: É a instrução mágica aqui. Ela manda o sistema "trocar" um pacote por outro em uma única operação, evitando conflitos ou quebras.
+* `swap`: É a instrução mágica aqui. Ela manda o sistema "trocar" um pacote por outro em uma única operação, evitando conflitos ou quebras.
 
-* ffmpeg-free: É o nome do pacote limitado que será removido do seu sistema.
+* `ffmpeg-free`: É o nome do pacote limitado que será removido do seu sistema.
 
 
-* ffmpeg: É o nome do pacote completo que será instalado no lugar (obtido a partir do repositório RPM Fusion).
+* `ffmpeg`: É o nome do pacote completo que será instalado no lugar (obtido a partir do repositório RPM Fusion).
 
-* --allowerasing: Dá permissão explícita ao dnf para apagar pacotes que estejam causando conflito (neste caso, o ffmpeg-free antigo) para permitir a entrada da versão nova.
+* `--allowerasing`: Dá permissão explícita ao dnf para apagar pacotes que estejam causando conflito (neste caso, o ffmpeg-free antigo) para permitir a entrada da versão nova.
 
 Rodar este comando é um passo obrigatório para garantir que todos os codecs e a aceleração da sua placa de vídeo NVIDIA funcionem perfeitamente.
 
@@ -108,11 +108,11 @@ sudo dnf group upgrade multimedia
 
 Detalhando o comando:
 
-* sudo dnf: Roda o gerenciador de pacotes do Fedora com privilégios de administrador.
+* `sudo dnf`: Roda o gerenciador de pacotes do Fedora com privilégios de administrador.
 
-* group upgrade: É uma instrução que diz ao sistema para atualizar um "grupo" inteiro de softwares interligados, em vez de um aplicativo isolado.
+* `group upgrade`: É uma instrução que diz ao sistema para atualizar um "grupo" inteiro de softwares interligados, em vez de um aplicativo isolado.
 
-* multimedia: É o nome desse grupo. Ele engloba ferramentas como o próprio FFmpeg, reprodutores de vídeo, codecs de áudio e plugins essenciais (como os do GStreamer).
+* `multimedia`: É o nome desse grupo. Ele engloba ferramentas como o próprio FFmpeg, reprodutores de vídeo, codecs de áudio e plugins essenciais (como os do GStreamer).
 
 Para o seu caso específico, lidando com conversões pesadas de AV1 e MKV, rodar isso garante que todo o ecossistema de mídia do seu Fedora esteja na versão mais recente e otimizada.
 
@@ -127,8 +127,8 @@ sudo dnf group upgrade core
 
 Detalhando o comando:
 
-* sudo dnf: Roda o gerenciador de pacotes do Fedora com privilégios de administrador.
+* `sudo dnf`: Roda o gerenciador de pacotes do Fedora com privilégios de administrador.
 
-* group upgrade: É uma instrução que diz ao sistema para atualizar um "grupo" inteiro de softwares interligados, em vez de um aplicativo isolado.
+* `group upgrade`: É uma instrução que diz ao sistema para atualizar um "grupo" inteiro de softwares interligados, em vez de um aplicativo isolado.
 
-* core: É o nome desse grupo base. Ele não mexe com interface gráfica ou players de vídeo, mas sim com os componentes críticos e de baixo nível do sistema operacional (como utilitários do kernel, inicialização e ferramentas básicas do terminal).
+* `core`: É o nome desse grupo base. Ele não mexe com interface gráfica ou players de vídeo, mas sim com os componentes críticos e de baixo nível do sistema operacional (como utilitários do kernel, inicialização e ferramentas básicas do terminal).
