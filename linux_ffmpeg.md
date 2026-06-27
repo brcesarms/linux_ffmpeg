@@ -4,6 +4,9 @@ Este comando utiliza o FFmpeg para realizar uma transcodificação de vídeo oti
 # sem perda de qualidade
 ffmpeg -i ENTRADA.mp4 -c:v av1_nvenc -preset p7 -cq 26 -filter:v fps=60 -c:a libopus -b:a 128k SAIDA.mkv
  
+# menos parametros
+ffmpeg -i ENTRADA.mp4 -c:v av1_nvenc -c:a libopus SAIDA.mkv
+ 
 ```
 
 #### O que cada parte do comando faz:
